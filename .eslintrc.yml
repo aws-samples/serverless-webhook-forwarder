@@ -1,0 +1,28 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# SPDX-License-Identifier: MIT-0
+
+---
+root: true
+env:
+  browser: true
+  commonjs: true
+  es2022: true
+  jest: true
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+  - airbnb-base
+  - airbnb-typescript/base
+parserOptions:
+  parser: '@typescript-eslint/parser'
+  project:
+    - tsconfig.json
+plugins:
+  - '@typescript-eslint'
+ignorePatterns:
+  - '*.d.ts'
+  - '*.js'
+rules: {
+  "no-new": 0,
+}

@@ -1,0 +1,9 @@
+{
+  "cfnDeploymentRoleArns": [],
+  "lambdaLogLevel": "info",
+  "tailnet": "-",
+  "targetTailscaleIp": "Tailscale IP of target to forward events to - should be of format 100.x.y.z",
+  "targetTailscalePort": "8080",
+  "targetProxyResponseMode": "FULL",
+  "webhookAllowedIpCidr": "0.0.0.0/0"
+}

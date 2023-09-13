@@ -1,0 +1,20 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# SPDX-License-Identifier: MIT-0
+
+---
+overrides:
+  - files:
+      - bin/*.ts
+      - lib/*.ts
+rules:
+  'no-new':
+    - off
+parserOptions:
+  project:
+    - tsconfig.json
+ignorePatterns:
+  - lib/authoriser/*
+  - lib/layer/*
+  - lib/rotate-credentials/*
+  - lib/webhook-forwarder/*
