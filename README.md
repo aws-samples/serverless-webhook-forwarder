@@ -76,28 +76,19 @@ One of these files is the `cdk.context.json` file that contains the
 configuration parameters that need to be completed.
 
 Open this file (you can navigate to in the file directory in the left hand menu
-of Cloud9) and make 2 edits:
+of Cloud9) and make 1 edit:
 
 1. Edit the value of the "tailnet" key to enter the name of your
    `Tailscale Organisation` you noted down earlier from [this
    page](https://login.tailscale.com/admin/settings/general) - this is probably
    your email address.
-2. Update the `cfnDeploymentRoleArns` field with the ARN that CDK uses to
-   deploy to CloudFormation to limit the ability of other roles to see or edit
-   the created secrets - you can find this ARN by:
-    1. Going to [CloudFormation](https://aws.amazon.com/cloudformation/) making
-       sure you are in the right region.
-    2. Selecting the `CDKToolkit` stack and then the `Resources` tab
-    3. Clicking on the `CloudFormationExecutionRole` link in the `Physical ID`
-       column and copying the ARN from the page you land on into the file and
-       adding " " around it.
 
 Leave the remaining fields with default values and save the file.
 Your file will now look something like the below:
 
 ```json
 {
-  "cfnDeploymentRoleArns": ["arn:aws:iam::123456789012:role/cdk-abc123def-cfn-exec-role-123456789012-eu-west-1"],
+  "cfnDeploymentRoleArns": [],
   "lambdaLogLevel": "info",
   "tailnet": "youremail@address.com",
   "targetTailscaleIp": "Tailscale IP of target to forward events to - should be of format 100.x.y.z",
@@ -113,10 +104,11 @@ deploy the solution by running the commands below from the terminal window
 `eu-west-1`):
 
 ```bash
-cd serverless-webhook
+cd serverless-webhook-forwarder
 ./deploy-pipeline.sh
 git remote set-url origin https://git-codecommit.{REGION}.amazonaws.com/v1/repos/serverless-webhook
 git add .
+git commit -m 'update cdk context'
 git push
 ```
 
@@ -133,7 +125,9 @@ triggered and it will build and deploy the solution.
 You can watch progress of the solution in
 [CodePipeline](https://console.aws.amazon.com/codesuite/codepipeline/pipelines)
 - it will take 5 – 10 minutes to fully deploy as it runs through the following
-steps:
+steps listed below.  Note that if you see the error message "Error calling startBuild.
+Cannot have more than 1 builds in the queue for the account" in CodePipeline just click
+the `Retry` button on that stage in CodePipeline.
 
 1. **Source** - This downloads the source code into from CodeCommit.
 2. **Build** – This stage is executed a number of times. The first time it
