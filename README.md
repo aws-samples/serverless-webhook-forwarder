@@ -307,7 +307,8 @@ relay this to your browser.  As long as you see the message
 
 ## Clean up
 
-We provide a two-step clean up process:
+We provide a two-step clean up process for the stack (you will also need to 
+delete the Cloud9 environment that was created via the Cloud9 console):
 
 1. Remove Demo EC2 stack - this includes the EC2 instance, VPC, NAT
    Gateway and related resources used for testing but will leave the Serverless
