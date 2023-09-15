@@ -266,9 +266,11 @@ Page](https://login.tailscale.com/admin/machines) and note down the IP address
 #### Step 4 - Update configuration files
 
 Finally we update the remaining configuration values and rerun the pipeline to
-update these.  Navigate back to your Cloud9 environment and open the
+update these.  Navigate to CodeCommit, select your repository and open the
 `cdk.context.json` file we edited earlier.  Update the `targetTailscaleIp`
-with the IP address of the DemoEc2 instance from the previous step.
+with the IP address of the DemoEc2 instance from the previous step as below, save
+and commit the change (you can also directly update the environment variables on the
+Lambda function).
 
 This file will now looks something like:
 
@@ -286,11 +288,11 @@ This file will now looks something like:
 
 #### Step 4 - Test
 
-The final step is to test the solution to make sure it all works.  You will
-need to retrieve your API URL from [API
-Gateway](https://console.aws.amazon.com/apigateway/home) by clicking on the
-`webhookForwarderApi` API and copying the `Invoke URL` from the subsequent
-screen.
+The final step is to test the solution to make sure it all works (make sure the
+CodePipeline deployment has finished first).  You will need to retrieve 
+your API URL from [API Gateway](https://console.aws.amazon.com/apigateway/home) 
+by clicking on the `webhookForwarderApi` API and copying the `Invoke URL` from 
+the subsequent screen.
 
 When you put this URL into your browser, you will send a GET request to API
 Gateway which will perform an authorisation check (initially by checking if
@@ -305,7 +307,8 @@ relay this to your browser.  As long as you see the message
 
 ## Clean up
 
-We provide a two-step clean up process:
+We provide a two-step clean up process for the stack (you will also need to 
+delete the Cloud9 environment that was created via the Cloud9 console):
 
 1. Remove Demo EC2 stack - this includes the EC2 instance, VPC, NAT
    Gateway and related resources used for testing but will leave the Serverless
