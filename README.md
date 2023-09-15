@@ -290,7 +290,7 @@ This file will now looks something like:
 
 The final step is to test the solution to make sure it all works (make sure the
 CodePipeline deployment has finished first).  You will need to retrieve 
-your API URL from [API1 Gateway](https://console.aws.amazon.com/apigateway/home) 
+your API URL from [API Gateway](https://console.aws.amazon.com/apigateway/home) 
 by clicking on the `webhookForwarderApi` API and copying the `Invoke URL` from 
 the subsequent screen.
 
