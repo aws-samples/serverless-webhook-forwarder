@@ -395,28 +395,6 @@ export default class ServerlessWebhookStack extends cdk.Stack {
       }),
     );
 
-    // This will deny everyone except the credentials rotation lambda from reading the oAuth key
-    // secret
-    oAuthSecret.addToResourcePolicy(
-      new iam.PolicyStatement({
-        sid: 'DenyAnyOtherToRead',
-        notPrincipals: [
-          this.rotateCredsLambda.grantPrincipal,
-          this.translateLambdaToSTSAssumedArn(this.rotateCredsLambda),
-          // Uncomment the below line to allow you to view the secret value (e.g. in the console)
-          // new iam.ArnPrincipal(`insert your role arn here + assumed role'),
-          new iam.AccountPrincipal(cdk.Stack.of(this).account),
-        ],
-        actions: [
-          'secretsmanager:GetSecretValue',
-        ],
-        effect: iam.Effect.DENY,
-        resources: [
-          '*',
-        ],
-      }),
-    );
-
     // If the cfnDeploymentRoleArns value has been populated in the cdk.context.json file
     // this will allow that role to delete or write the Tailscale oAuth key resource policy
     // and deny everyone else this permission.  If this value has not been populated in
@@ -434,25 +412,6 @@ export default class ServerlessWebhookStack extends cdk.Stack {
             'secretsmanager:PutResourcePolicy',
           ],
           effect: iam.Effect.ALLOW,
-          resources: [
-            '*',
-          ],
-        }),
-      );
-      oAuthSecret.addToResourcePolicy(
-        new iam.PolicyStatement({
-          sid: 'DenyNonPipelinePolicyUpdates',
-          notPrincipals: [
-            ...cfnDeploymentRoleArns.map(
-              (arn) => new iam.ArnPrincipal(arn),
-            ),
-            new iam.AccountPrincipal(cdk.Stack.of(this).account),
-          ],
-          actions: [
-            'secretsmanager:DeleteResourcePolicy',
-            'secretsmanager:PutResourcePolicy',
-          ],
-          effect: iam.Effect.DENY,
           resources: [
             '*',
           ],

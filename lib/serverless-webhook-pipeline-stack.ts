@@ -51,7 +51,7 @@ export default class PipelineStack extends cdk.Stack {
     // Create the pipeline
     this.pipelineL3 = new CdkCodePipelineL3(this, 'Pipeline', {
       pipelineName: 'Serverless-Webhook-Forwarder-Pipeline',
-
+      publishAssetsInParallel: false,
       synth: new CodeBuildStep('Synth', {
         buildEnvironment: {
           buildImage: PipelineStack.BUILD_IMAGE,
