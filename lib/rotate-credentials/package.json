@@ -17,7 +17,7 @@
   "license": "MIT-0",
   "devDependencies": {
     "@aws-lambda-powertools/logger": "^1.9.0",
-    "@aws-sdk/client-secrets-manager": "^3.352.0",
+    "@aws-sdk/client-secrets-manager": "^3.645.0",
     "@jest/globals": "^29.5.0",
     "@types/aws-lambda": "^8.10.119",
     "@types/jest": "^29.5.2",
